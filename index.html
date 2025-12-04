@@ -41,9 +41,9 @@
 /* ---- Create "I love you" looping around heart ---- */
 const ui = document.getElementById("ui");
 
-const total = 60;           // number of text nodes
-const speed = 0.002;        // speed of movement
-const scale = 10;           // heart size multiplier
+const total = 60;           
+const speed = 0.001; // <-- HALF AS FAST NOW
+const scale = 10;
 
 let words = [];
 
@@ -56,15 +56,19 @@ for (let i = 0; i < total; i++) {
 
     words.push({
         el: div,
-        t: i / total  // spacing around the heart path
+        t: i / total
     });
 }
 
-/* Heart curve function */
+/* Heart curve coordinates */
 function heartPoint(t) {
     const angle = t * Math.PI * 2;
     const x = 16 * Math.pow(Math.sin(angle), 3);
-    const y = 13 * Math.cos(angle) - 5 * Math.cos(2 * angle) - 2 * Math.cos(3 * angle) - Math.cos(4 * angle);
+    const y =
+        13 * Math.cos(angle) -
+        5 * Math.cos(2 * angle) -
+        2 * Math.cos(3 * angle) -
+        Math.cos(4 * angle);
 
     return {
         x: 175 + x * scale,
@@ -74,8 +78,8 @@ function heartPoint(t) {
 
 /* Animation loop */
 function animate() {
-    words.forEach(w => {
-        w.t = (w.t + speed) % 1;   // move forward around the heart
+    words.forEach((w) => {
+        w.t = (w.t + speed) % 1;
 
         const p = heartPoint(w.t);
         w.el.style.left = p.x + "px";

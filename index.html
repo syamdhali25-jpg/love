@@ -17,78 +17,75 @@
         font-family: Arial, sans-serif;
     }
 
-    /* Container rotates like your reference */
     #ui {
         position: relative;
         width: 350px;
         height: 350px;
-        transform-style: preserve-3d;
-        animation: spin 10s linear infinite;
     }
 
-    @keyframes spin {
-        0% { transform: rotateY(0deg); }
-        100% { transform: rotateY(360deg); }
-    }
-
-    /* Your text style */
-    #ui .love_word {
+    .love_word {
         position: absolute;
         color: #ea80b0;
         font-size: 1.4rem;
         text-shadow: 0 0 10px #fff;
-        letter-spacing: 2px;
         white-space: nowrap;
-        transform: translate(-50%, -50%) rotateZ(-30deg);
-    }
-
-    /* Horizontal stagger animation from your snippet */
-    #ui .love_horizontal {
-        animation: horizontal 10000ms infinite alternate ease-in-out;
-        animation-delay: calc(var(--i) * -300ms);
-    }
-
-    @keyframes horizontal {
-        0% { transform: translate(-50%, -50%) translateX(-20px) rotateZ(-30deg); }
-        50% { transform: translate(-50%, -50%) translateX(20px) rotateZ(-30deg); }
-        100% { transform: translate(-50%, -50%) translateX(-20px) rotateZ(-30deg); }
+        transform: translate(-50%, -50%);
     }
 </style>
 </head>
-
 <body>
 
 <div id="ui"></div>
 
 <script>
-/* ---- Generate Text Along a Heart Curve ---- */
-
+/* ---- Create "I love you" looping around heart ---- */
 const ui = document.getElementById("ui");
-const total = 60; // number of text elements
 
+const total = 60;           // number of text nodes
+const speed = 0.002;        // speed of movement
+const scale = 10;           // heart size multiplier
+
+let words = [];
+
+/* Create elements */
 for (let i = 0; i < total; i++) {
-    const word = document.createElement("div");
-    word.className = "love_word love_horizontal";
-    word.style.setProperty("--i", i);
-    word.textContent = "I love you";
+    const div = document.createElement("div");
+    div.className = "love_word";
+    div.textContent = "I love you";
+    ui.appendChild(div);
 
-    // heart parametric equation
-    const t = (Math.PI * 2 * i) / total;
-
-    // Heart math formula (2D)
-    const x = 16 * Math.pow(Math.sin(t), 3);
-    const y = 13 * Math.cos(t) - 5 * Math.cos(2 * t) - 2 * Math.cos(3 * t) - Math.cos(4 * t);
-
-    // scale and center it
-    const scale = 10;
-    const left = 175 + x * scale;
-    const top = 175 - y * scale;
-
-    word.style.left = left + "px";
-    word.style.top = top + "px";
-
-    ui.appendChild(word);
+    words.push({
+        el: div,
+        t: i / total  // spacing around the heart path
+    });
 }
+
+/* Heart curve function */
+function heartPoint(t) {
+    const angle = t * Math.PI * 2;
+    const x = 16 * Math.pow(Math.sin(angle), 3);
+    const y = 13 * Math.cos(angle) - 5 * Math.cos(2 * angle) - 2 * Math.cos(3 * angle) - Math.cos(4 * angle);
+
+    return {
+        x: 175 + x * scale,
+        y: 175 - y * scale
+    };
+}
+
+/* Animation loop */
+function animate() {
+    words.forEach(w => {
+        w.t = (w.t + speed) % 1;   // move forward around the heart
+
+        const p = heartPoint(w.t);
+        w.el.style.left = p.x + "px";
+        w.el.style.top = p.y + "px";
+    });
+
+    requestAnimationFrame(animate);
+}
+
+animate();
 </script>
 
 </body>

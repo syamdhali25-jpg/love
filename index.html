@@ -1,49 +1,64 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-  <meta charset="UTF-8"/>
-  <meta name="viewport" content="width=device-width, initial-scale=1"/>
-  <title>Animated Heart</title>
-  <style>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Love Animation</title>
+
+<style>
     body {
-      display: flex;
-      justify-content: center;
-      align-items: center;
-      min-height: 100vh;
-      margin: 0;
-      background-color: #000;
-      overflow: hidden;
+        margin: 0;
+        background: #000;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        height: 100vh;
+        overflow: hidden;
+        font-family: Arial, sans-serif;
     }
 
-    .ui .love_word {
-      position: absolute;
-      top: 50%;
-      left: 50%;
-      transform: translate(-50%, -50%) rotateZ(-30deg);
-      color: #ea80b0;
-      font-size: 1.6rem;
-      text-shadow: 0 0 10px #fff;
-      letter-spacing: 2px;
-      white-space: nowrap;
+    /* FIXED: Heart container is now visible */
+    .heart-container {
+        position: relative;
+        width: 350px;
+        height: 350px;
     }
 
-    .ui .love_horizontal {
-      animation: horizontal 10s infinite alternate ease-in-out;
-      animation-delay: calc(var(--i) * -300ms);
+    /* FIXED: Words now appear clearly in center */
+    .love_word {
+        position: absolute;
+        top: 50%;
+        left: 50%;
+        transform: translate(-50%, -50%);
+        color: #ffffff; /* WHITE so you can SEE IT */
+        font-size: 2rem;
+        text-shadow: 0 0 20px #ff8bd1, 0 0 40px #ff8bd1;
+        white-space: nowrap;
+        opacity: 0.8;
     }
 
-    @keyframes horizontal {
-      0% { transform: translateX(-50px) rotateZ(-30deg); }
-      50% { transform: translateX(50px) rotateZ(-30deg); }
-      100% { transform: translateX(-50px) rotateZ(-30deg); }
+    .love_horizontal {
+        animation: float 4s ease-in-out infinite;
+        animation-delay: calc(var(--i) * -0.4s);
     }
-  </style>
+
+    /* Smooth left-right floating */
+    @keyframes float {
+        0% { transform: translate(-50%, -50%) translateX(-40px); }
+        50% { transform: translate(-50%, -50%) translateX(40px); }
+        100% { transform: translate(-50%, -50%) translateX(-40px); }
+    }
+
+</style>
 </head>
+
 <body>
-  <div class="heart-container">
-    <div class="ui love_word love_horizontal" style="--i:1;">I love you</div>
-    <div class="ui love_word love_horizontal" style="--i:2;">I love you</div>
-    <div class="ui love_word love_horizontal" style="--i:3;">I love you</div>
-  </div>
+
+<div class="heart-container">
+    <div class="love_word love_horizontal" style="--i:1">I love you</div>
+    <div class="love_word love_horizontal" style="--i:2">I love you</div>
+    <div class="love_word love_horizontal" style="--i:3">I love you</div>
+</div>
+
 </body>
 </html>

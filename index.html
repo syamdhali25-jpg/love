@@ -1,63 +1,49 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Animated Heart</title>
-    
-    <style>
-        body {
-            display: flex;
-            justify-content: center;
-            align-items: center;
-            min-height: 100vh;
-            margin: 0;
-            background-color: #000;
-            overflow: hidden;
-        }
+  <meta charset="UTF-8"/>
+  <meta name="viewport" content="width=device-width, initial-scale=1"/>
+  <title>Animated Heart</title>
+  <style>
+    body {
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      min-height: 100vh;
+      margin: 0;
+      background-color: #000;
+      overflow: hidden;
+    }
 
-        .ui .love_word {
-            color: #ea80b0;
-            font-size: 1.4rem;
-            transform: rotateZ(-30deg); /* FIXED */
-            text-shadow: 0 0 10px #fff;
-            letter-spacing: 2px;
-            white-space: nowrap;
-            position: absolute; /* important so each line positions independently */
-        }
+    .ui .love_word {
+      position: absolute;
+      top: 50%;
+      left: 50%;
+      transform: translate(-50%, -50%) rotateZ(-30deg);
+      color: #ea80b0;
+      font-size: 1.6rem;
+      text-shadow: 0 0 10px #fff;
+      letter-spacing: 2px;
+      white-space: nowrap;
+    }
 
-        .ui .love_horizontal {
-            animation: horizontal 10000ms infinite alternate ease-in-out;
-            animation-delay: calc(var(--i) * -300ms);
-        }
-        
-        @keyframes horizontal {
-            0% { transform: translateX(-100px) rotateZ(-30deg); }
-            50% { transform: translateX(100px) rotateZ(-30deg); }
-            100% { transform: translateX(-100px) rotateZ(-30deg); }
-        }
-        
-        .heart-container {
-            position: relative;
-            width: 300px;
-            height: 300px;
-            transform-style: preserve-3d;
-            animation: pulse 4s infinite;
-        }
+    .ui .love_horizontal {
+      animation: horizontal 10s infinite alternate ease-in-out;
+      animation-delay: calc(var(--i) * -300ms);
+    }
 
-        @keyframes pulse {
-            0%, 100% { transform: scale(1); }
-            50% { transform: scale(1.05); }
-        }
-    </style>
+    @keyframes horizontal {
+      0% { transform: translateX(-50px) rotateZ(-30deg); }
+      50% { transform: translateX(50px) rotateZ(-30deg); }
+      100% { transform: translateX(-50px) rotateZ(-30deg); }
+    }
+  </style>
 </head>
 <body>
-    
-    <div class="heart-container">
-        <div class="ui love_word love_horizontal" style="--i:1;">I love you</div>
-        <div class="ui love_word love_horizontal" style="--i:2;">I love you</div>
-        <div class="ui love_word love_horizontal" style="--i:3;">I love you</div>
-    </div>
-    
+  <div class="heart-container">
+    <div class="ui love_word love_horizontal" style="--i:1;">I love you</div>
+    <div class="ui love_word love_horizontal" style="--i:2;">I love you</div>
+    <div class="ui love_word love_horizontal" style="--i:3;">I love you</div>
+  </div>
 </body>
 </html>
